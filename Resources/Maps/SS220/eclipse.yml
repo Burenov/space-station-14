@@ -165,6 +165,7 @@ entities:
     - type: Transform
       pos: 0.5989075,-1.318718
       parent: 1
+    - type: SkipAutoVariantize
     - type: MapGrid
       chunks:
         0,0:
@@ -227504,12 +227505,6 @@ entities:
           ents:
           - 32285
           - 32284
-    - type: MechAssembly
-      requiredParts:
-        RipleyLArm: False
-        RipleyRArm: False
-        RipleyLLeg: True
-        RipleyRLeg: True
 - proto: RipleyLLeg
   entities:
   - uid: 32284
