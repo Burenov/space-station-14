@@ -153041,8 +153041,7 @@ entities:
           showEnts: False
           occludes: False
           ent: null
-    - type: ReplacementAccent
-      accent: cowboy
+    - type: CowboyAccent
   - uid: 10769
     components:
     - type: MetaData

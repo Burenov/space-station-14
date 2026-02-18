@@ -290138,8 +290138,7 @@ entities:
           showEnts: False
           occludes: False
           ent: null
-    - type: ReplacementAccent
-      accent: cowboy
+    - type: CowboyAccent
   - uid: 20306
     components:
     - type: Transform
@@ -290575,8 +290574,7 @@ entities:
           occludes: False
           ent: null
     - type: SpanishAccent
-    - type: ReplacementAccent
-      accent: italian
+    - type: ItalianAccent
   - uid: 20562
     components:
     - type: Transform
@@ -290616,8 +290614,7 @@ entities:
           showEnts: False
           occludes: False
           ent: null
-    - type: ReplacementAccent
-      accent: italian
+    - type: ItalianAccent
     - type: SpanishAccent
   - uid: 20577
     components:
