@@ -19,7 +19,7 @@ namespace Content.Client.SS220.Experience.UiElements;
 [GenerateTypedNameReferences]
 public sealed partial class ExperienceTreeContainer : BoxContainer
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     public Action? OnAddSublevelPoint;
 
@@ -204,7 +204,8 @@ public sealed partial class ExperienceTreeContainer : BoxContainer
 
     private TextureRect GetExperienceSublevelVisualRect(FixedPoint4 fillingRatio, Color? color = null, in ShaderInstance? shader = null)
     {
-        return GetVisualRect(fillingRatio.Float(), ExperienceSystem.EndLearningProgress.Float(), ExperienceSystem.StartLearningProgress.Float(), color, shader, useBars: false);
+        var progress = fillingRatio < ExperienceSystem.EndLearningProgress ? ExperienceSystem.StartLearningProgress : ExperienceSystem.EndLearningProgress;
+        return GetVisualRect(progress.Float(), ExperienceSystem.EndLearningProgress.Float(), ExperienceSystem.StartLearningProgress.Float(), color, shader, useBars: false);
     }
 
     private TextureRect GetVisualRect(float fillingRatio, float endValue, float firstValue, Color? color = null, in ShaderInstance? shader = null, bool useBars = true)

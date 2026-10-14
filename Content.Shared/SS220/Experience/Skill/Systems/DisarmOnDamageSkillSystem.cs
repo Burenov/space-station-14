@@ -2,6 +2,7 @@
 
 using System.Linq;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Hands.EntitySystems;
@@ -10,19 +11,18 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.SS220.Experience.Skill.Components;
 using Content.Shared.SS220.Experience.Systems;
+using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.SS220.Experience.Skill.Systems;
 
-public sealed class DisarmOnDamageSkillSystem : SkillEntitySystem
+public sealed partial class DisarmOnDamageSkillSystem : SkillEntitySystem
 {
-    [Dependency] private readonly ExperienceSystem _experience = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     private readonly ProtoId<SkillTreePrototype> _affectedSkillTree = "PhysicalTraining";
     private readonly FixedPoint4 _damageToExperience = 150;
@@ -36,7 +36,7 @@ public sealed class DisarmOnDamageSkillSystem : SkillEntitySystem
 
     public void OnDamageChangedEvent(Entity<DisarmOnDamageSkillComponent> entity, ref DamageChangedEvent args)
     {
-        if (args.DamageDelta is null)
+        if (args.DamageDelta is null || !GameTiming.IsFirstTimePredicted)
             return;
 
         if (DamageSpecifier.GetPositive(args.DamageDelta).GetTotal() < entity.Comp.DamageThreshold)
@@ -52,7 +52,7 @@ public sealed class DisarmOnDamageSkillSystem : SkillEntitySystem
         TryChangeStudyingProgress(entity, _affectedSkillTree, DamageSpecifier.GetPositive(args.DamageDelta).GetTotal() / _damageToExperience);
 
         // And after that we check if we lost our precious items
-        if (!GetPredictedRandomOnCurTick(new() { GetNetEntity(entity).Id, args.DamageDelta.GetTotal().Int() }).Prob(entity.Comp.DisarmChance))
+        if (!GetPredictedRandomOnCurTick(GetNetEntity(entity), GetNetEntity(args.Origin)).Prob(entity.Comp.DisarmChance))
             return;
 
         if (_hands.EnumerateHeld(experienceEntity.Value.Owner).Count() == 0)
@@ -63,7 +63,8 @@ public sealed class DisarmOnDamageSkillSystem : SkillEntitySystem
             _hands.TryDrop(experienceEntity.Value.Owner, hand);
         }
 
-        _popupSystem.PopupEntity(Loc.GetString(entity.Comp.OnDropPopup, ("target", Identity.Entity(experienceEntity.Value.Owner, EntityManager))), experienceEntity.Value.Owner, PopupType.MediumCaution);
+        _popupSystem.PopupPredicted(Loc.GetString(entity.Comp.OnDropPopup, ("target", Identity.Entity(experienceEntity.Value.Owner, EntityManager))),
+            experienceEntity.Value.Owner, experienceEntity.Value.Owner, PopupType.MediumCaution);
 
         TryAddToAdminLogs(entity, $"dropping all items in hands due to {nameof(DisarmOnDamageSkillComponent)}", LogImpact.High);
     }

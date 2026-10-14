@@ -12,11 +12,12 @@
 - type: randomHumanoidSettings
   id: RedWings
   parent: EventHumanoid
-  speciesBlacklist: [ Felinid, Diona, Arachnid, Moth, Vox, Reptilian, Skeleton, SlimePerson, Vulpkanin, Tajaran, Dwarf]
+  speciesBlacklist: [ Felinid, Diona, Arachnid, Moth, Vox, Reptilian, Skeleton, SlimePerson, Vulpkanin, Tajaran, Dwarf, Ipc]
   components:
     - type: GhostRole
       raffle:
         settings: short
+    - type: AntagImmune
 
 - type: randomHumanoidSettings
   id: RedWingsOfficer
@@ -35,6 +36,8 @@
       nameSegments:
       - NamesRedwingsLast
       nameFormat: name-format-redwings-officer
+    - type: RoleExperienceAdd
+      definitionId: RedWingsOfficerRoleExperience
 
 - type: randomHumanoidSettings
   id: RedWingsMedic
@@ -54,6 +57,8 @@
       nameSegments:
       - NamesRedwingsLast
       nameFormat: name-format-redwings-medic
+    - type: RoleExperienceAdd
+      definitionId: RedWingsMedicRoleExperience
 
 - type: randomHumanoidSettings
   id: RedWingsPilot
@@ -73,3 +78,5 @@
       nameSegments:
       - NamesRedwingsLast
       nameFormat: name-format-redwings-pilot
+    - type: RoleExperienceAdd
+      definitionId: RedWingsPilotRoleExperience

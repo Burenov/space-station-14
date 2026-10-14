@@ -6,7 +6,7 @@
   setPreference: false
   startingGear: CBURNGear
   experienceDefinition: CBURNRoleExperience # SS220-experience
-  icon: "JobIconNanotrasen"
+  icon: "JobIconCBURN"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -28,6 +28,7 @@
 
 - type: startingGear
   id: CBURNGear
+  experienceDefinition: CBURNRoleExperience # SS220-experience
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBrown
     back: ClothingBackpackDuffelCBURN
@@ -41,13 +42,21 @@
     pocket1: HandheldRadio #SS220 Radio
     pocket2: WeaponLaserGun
     belt: ClothingBeltBandolier
+  # SS220-ERTchangingthings-begin
   storage:
     back:
-    - WeaponShotgunDoubleBarreled
+    - CrowbarRed
     - BoxShotgunIncendiary
-    - GrenadeFlashBang
+    - BoxShotgunIncendiary
     - PillAmbuzolPlus
-    - PillAmbuzol
+    - PillAmbuzolPlus
+    - PillAmbuzolPlus
+    - WeaponShotgunDoubleBarreled
+    - WeaponLaserSMG
+    - LaserSMGPowerCell
+    - LaserSMGPowerCell
+    - LaserSMGPowerCell
+  # SS220-ERTchangingthings-end
 
 - type: chameleonOutfit
   id: CBURNChameleonOutfit

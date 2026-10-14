@@ -2,7 +2,7 @@
   id: SyndicateReinforcementRoleExperience
   skills:
     Bureaucracy:
-      level: 1
+      level: 2
     ExtravehicularActivity:
       level: 2
     CombatTraining:
@@ -11,11 +11,13 @@
       level: 1
     Medicine:
       level: 2
+    Anatomy:
+      level: 2
     PhysicalTraining:
       level: 2
   knowledges:
   - SyndicateAgentKnowledge
-  addSublevelPoints: 10
+  addSublevelPoints: 15
 
 - type: experienceDefinition
   id: SyndicateCommanderRoleExperience
@@ -29,6 +31,8 @@
     Construction:
       level: 3
     Medicine:
+      level: 3
+    Anatomy:
       level: 3
     PhysicalTraining:
       level: 3
@@ -49,6 +53,8 @@
       level: 2
     Medicine:
       level: 4
+    Anatomy:
+      level: 3
     PhysicalTraining:
       level: 3
   knowledges:
@@ -67,6 +73,8 @@
     Construction:
       level: 2
     Medicine:
+      level: 2
+    Anatomy:
       level: 2
     PhysicalTraining:
       level: 2
